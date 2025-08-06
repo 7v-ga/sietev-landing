@@ -1,26 +1,77 @@
 @import "tailwindcss";
 
+/* Colores y variables */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --sietev-green: #a2d600;
+  --sietev-blue: #3d3dfc;
+  --sietev-green-dark: #7aa500;
+  --sietev-blue-dark: #2a2aa6;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --sietev-green: #a2d600;
+    --sietev-blue: #3d3dfc;
+    --sietev-green-dark: #7aa500;
+    --sietev-blue-dark: #2a2aa6;
   }
 }
 
+/* Body styling */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Textil background pattern */
+.bg-sietev-textil {
+  position: relative;
+  z-index: 0;
+}
+.bg-sietev-textil::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("/fondo-sietev-i.svg");
+  background-repeat: repeat;
+  background-size: 1280px;
+  background-clip: content-box;
+  opacity: 0.14;
+
+  pointer-events: none;
+}
+
+.btn-sietev {
+  color: var(--sietev-blue);
+  font-weight: bold;
+  border-radius: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 32px 0 rgba(61, 61, 252, 0.12);
+  border: 2px solid var(--sietev-blue);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+  cursor: pointer;
+}
+.btn-sietev:hover {
+  background-color: var(--sietev-blue);
+  color: #fff;
+  transform: scale(1.05);
+}
+.text-sietev-green {
+  color: var(--sietev-green);
+}
+.text-sietev-blue {
+  color: var(--sietev-blue);
+}
+.bg-sietev-green {
+  background: var(--sietev-green);
+}
+.bg-sietev-blue {
+  background: var(--sietev-blue);
 }
