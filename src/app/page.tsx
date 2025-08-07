@@ -1,7 +1,7 @@
 // src/app/page.tsx
 "use client";
 
-import { HeroSieteV } from "./HeroSieteV";
+import { HeroSieteV } from "./components/HeroSieteV";
 import { ServiciosSieteV } from "./ServiciosSieteV";
 
 export default function Home() {

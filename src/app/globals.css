@@ -37,7 +37,7 @@ body {
   z-index: 0;
   background-image: url("/fondo-sietev-a.svg");
   background-repeat: repeat;
-  background-size: 1280px;
+  background-size: 1143.6069px;
   background-clip: content-box;
   opacity: 0.14;
 
@@ -81,7 +81,7 @@ body {
   /* Ajusta el tamaño del pattern según el tamaño del módulo SVG */
   background-image: url("/fondo-sietev-i.svg");
   background-repeat: repeat;
-  background-size: auto 90px;
+  background-size: auto 80px;
   animation: sietevScroll 12s linear infinite;
   opacity: 1;
 }
@@ -91,6 +91,6 @@ body {
     background-position-y: 0;
   }
   100% {
-    background-position-y: 90px; /* Debe coincidir con la altura del SVG */
+    background-position-y: 80px; /* Debe coincidir con la altura del SVG */
   }
 }
