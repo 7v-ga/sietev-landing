@@ -11,10 +11,10 @@ export function HeroSieteV() {
           background: `linear-gradient(
             90deg,
             #22485f 1%,
-            #425364 8%,
-            #e6f0f3 28%,
-            #e6f0f3 72%,
-            #425364 92%,
+            #e6f6f7 20%,
+            #e6f0f3 22%,
+            #e6f0f3 78%,
+            #e6f6f7 80%,
             #22485f 99%
           )`,
         }}
