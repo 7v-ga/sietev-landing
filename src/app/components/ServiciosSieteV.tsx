@@ -7,9 +7,9 @@ export function ServiciosSieteV() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7 }}
-      className="z-10 mt-20 max-w-2xl w-full bg-white border border-gray-200 rounded-2xl p-8 shadow-sietev mx-auto"
+      className="z-10 mt-20 max-w-3xl w-full bg-white border border-gray-200 rounded-2xl p-8 shadow-sietev mx-auto text-[color:var(--sietev-blue)]"
     >
-      <h2 className="text-2xl font-bold text-sietevBlue mb-4 text-center">
+      <h2 className="text-3xl font-bold text-sietevBlue mb-4 text-center">
         Servicios de SieteV
       </h2>
       <p className="text-gray-700 text-base mb-6 text-center">

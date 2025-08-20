@@ -1,10 +1,13 @@
 import React, { useMemo, useId } from "react";
 
 /**
- * SevenV (v4.8, TS) — Colores globales + planetas esféricos con verde dominante
+ * SevenV (v4.9, TS) — Título + intro reubicados sobre la animación SVG (misma columna)
  *
- * FIX: Se usaron variables definidas en `globals.css` para la paleta.
- * Mejora: Los planetas ahora usan un degradado radial para simular volumen/esfericidad, con verde como color dominante.
+ * Cambio principal: el bloque con `title` e `intro` ahora vive dentro de la PRIMERA columna del grid
+ * (la de la animación), justo encima del SVG.
+ *
+ * En mobile (1 col): título/intro → animación → tarjetas.
+ * En desktop (≥lg, 2 col): izquierda (título/intro + animación) / derecha (tarjetas).
  */
 
 // ===================== Tipos exportados =====================
@@ -44,8 +47,7 @@ type PlanetOrbitProps = {
   color: string;
 };
 
-// Paleta por defecto desde globals.css
-// Paleta por defecto usando variables globales definidas en globals.css (con fallback hex para evitar b/n)
+// Paleta por defecto usando variables globales definidas en globals.css (con fallback hex)
 const DEFAULT_PALETTE: string[] = [
   "var(--sietev-green, #a2d600)",
   "var(--sietev-blue, #3d3dfc)",
@@ -58,13 +60,34 @@ const DEFAULT_PALETTE: string[] = [
 
 // ===================== Textos =====================
 const DEFAULT_ITEMS: SevenVItem[] = [
-  { k: "Volumen", d: "El <strong>volumen</strong> de los datos refleja la magnitud creciente de la información, desde gigabytes hasta petabytes, y nos reta a organizar y almacenar lo masivo." },
-  { k: "Velocidad", d: "La <strong>velocidad</strong> indica qué tan rápido fluyen y cambian los datos en un mundo que demanda respuestas en tiempo real." },
-  { k: "Variedad", d: "La <strong>variedad</strong> muestra la diversidad de fuentes y formatos: números, textos, imágenes, audios o sensores que conviven en un mismo ecosistema." },
-  { k: "Veracidad", d: "La <strong>veracidad</strong> apunta a la calidad y confianza del dato: su trazabilidad, coherencia y validación frente a la desinformación." },
-  { k: "Valor", d: "El <strong>valor</strong> surge al transformar datos en decisiones, generando impacto y resultados tangibles para personas y organizaciones." },
-  { k: "Variabilidad", d: "La <strong>variabilidad</strong> expresa cómo los datos cambian en el tiempo: tendencias, estacionalidades y contextos que modifican patrones." },
-  { k: "Visualización", d: "La <strong>visualización</strong> traduce datos complejos en claridad, creando narrativas comprensibles que facilitan acción e impacto." }
+  {
+    k: "Volumen",
+    d: "El <strong>volumen</strong> de los datos representa la magnitud de la información que producimos cada día. Desde gigabytes hasta petabytes, obliga a pensar en cómo almacenar, procesar y dar sentido a enormes cantidades de información.",
+  },
+  {
+    k: "Velocidad",
+    d: "La <strong>velocidad</strong> refleja la rapidez con la que los datos nacen, viajan y se transforman en conocimiento. En un entorno en tiempo real, determina la capacidad de reaccionar con oportunidad.",
+  },
+  {
+    k: "Variedad",
+    d: "La <strong>variedad</strong> muestra la diversidad de los datos: hojas de cálculo, imágenes, textos, audios o sensores. Esta pluralidad evidencia que el Big Data es tan heterogéneo como la vida misma.",
+  },
+  {
+    k: "Veracidad",
+    d: "La <strong>veracidad</strong> señala el nivel de confianza en el dato. No todo lo que circula es cierto, por lo que resulta esencial validar la calidad, el linaje y la trazabilidad de la información.",
+  },
+  {
+    k: "Valor",
+    d: "El <strong>valor</strong> de los datos se mide en su capacidad para generar impacto. Más allá de acumular información, lo importante es convertirla en decisiones útiles y aprendizajes que abren oportunidades.",
+  },
+  {
+    k: "Variabilidad",
+    d: "La <strong>variabilidad</strong> expresa cómo los datos cambian con el tiempo. Factores sociales, económicos o ambientales transforman patrones y obligan a adaptarse a señales dinámicas.",
+  },
+  {
+    k: "Visualización",
+    d: "La <strong>visualización</strong> convierte datos complejos en narrativas comprensibles. Es la herramienta que traduce la abstracción en claridad, haciendo posible leer, comparar y actuar con evidencia a la vista.",
+  }
 ];
 
 // ===================== Componente exportable =====================
@@ -74,9 +97,11 @@ export function SevenVBigData({
   palette,
   size = 360,
   showCards = true,
-  className = "relative w-full max-w-6xl px-4 md:px-8 py-20 md:py-28 overflow-hidden",
+  className =
+    "relative w-full max-w-6xl px-4 md:px-8 py-20 md:py-28 overflow-hidden",
   title = "¿Qué son las 7V del Big Data?",
-  intro = "Las 7V son siete dimensiones que permiten comprender el Big Data en toda su complejidad: cantidad, rapidez, diversidad, confianza, utilidad, cambio y comunicación visual.",
+  intro =
+    "Las 7V son siete lentes complementarios que nos ayudan a comprender el fenómeno del Big Data. Nacidas de las 3V originales (Volumen, Velocidad y Variedad), se amplían con Veracidad, Valor, Variabilidad y Visualización para abarcar no solo la cantidad, sino también la confianza, el cambio, la utilidad y la forma en que los datos se comunican.",
   hoverTint = true,
   logoHref,
   logoSize = 64,
@@ -86,29 +111,56 @@ export function SevenVBigData({
 
   return (
     <section id="seven-v" className={className}>
-      <div className="absolute top-0 left-0 w-full h-full -z-10 pointer-events-none" style={{ opacity: 0.28, mixBlendMode: "overlay", filter: "blur(0.5px) brightness(1.03)" }} />
+      <div
+        className="absolute top-0 left-0 w-full h-full -z-10 pointer-events-none"
+        style={{ opacity: 0.28, mixBlendMode: "overlay", filter: "blur(0.5px) brightness(1.03)" }}
+      />
 
       <div className="relative z-10">
-        <div className="mb-10">
-          <h3 className="text-2xl md:text-4xl font-bold tracking-tight mb-3">{title}</h3>
-          <p className="text-gray-700 max-w-3xl">{intro}</p>
-          <p className="mt-2 text-sm text-gray-600 italic">Cada “V” es una lente para leer el Big Data.</p>
-        </div>
+        <div
+          className={`grid grid-cols-1 ${showCards ? "lg:grid-cols-2" : "lg:grid-cols-1"} gap-10 items-start`}
+        >
+          {/* Columna izquierda: Título/intro encima del SVG */}
+          <div className="flex flex-col gap-6">
+            <header className="mb-1">
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3 text-[color:var(--sietev-blue)]">{title}</h3>
+              <p className="text-gray-700 max-w-3xl">{intro}</p>
+              <p className="mt-2 text-sm text-gray-600 italic">Cada “V” es una lente para leer el Big Data.</p>
+            </header>
 
-        <div className={`grid grid-cols-1 ${showCards ? "lg:grid-cols-2" : "lg:grid-cols-1"} gap-10 items-center`}>
-          <div className="relative w-full aspect-square rounded-2xl border border-dashed border-gray-300 grid place-items-center bg-white/50">
-            <SolarSystem items={itemsMemo} size={size} palette={paletteMemo} logoHref={logoHref} logoSize={logoSize} />
-            <div className="absolute bottom-3 right-3 text-xs px-2 py-1 rounded bg-white/70 backdrop-blur">SVG — 7V en movimiento</div>
+            <div className="relative w-full aspect-square rounded-2xl border border-dashed border-gray-300 grid place-items-center bg-white/50">
+              <SolarSystem
+                items={itemsMemo}
+                size={size}
+                palette={paletteMemo}
+                logoHref={logoHref}
+                logoSize={logoSize}
+              />
+              <div className="absolute bottom-3 right-3 text-xs px-2 py-1 rounded bg-white/70 backdrop-blur">
+                SVG — 7V en movimiento
+              </div>
+            </div>
           </div>
 
+          {/* Columna derecha: tarjetas */}
           {showCards && (
             <ul className="grid grid-cols-1 gap-6">
               {itemsMemo.map((it, i) => {
                 const color = paletteMemo[i % paletteMemo.length];
                 return (
-                  <li key={it.k} className="p-5 rounded-xl border shadow-sm bg-white/60 backdrop-blur transition-colors" style={{ borderColor: "#e5e7eb" }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = color; if (hoverTint) e.currentTarget.style.backgroundColor = `${color}20`; }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = "#e5e7eb"; e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.6)"; }}>
+                  <li
+                    key={it.k}
+                    className="p-5 rounded-xl border shadow-sm bg-white/60 backdrop-blur transition-colors"
+                    style={{ borderColor: "#e5e7eb" }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = color;
+                      if (hoverTint) e.currentTarget.style.backgroundColor = `${color}20`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "#e5e7eb";
+                      e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.6)";
+                    }}
+                  >
                     <p className="text-sm text-gray-700" dangerouslySetInnerHTML={{ __html: it.d }} />
                   </li>
                 );
@@ -144,7 +196,15 @@ function SolarSystem({ items, size = 360, palette, logoHref, logoSize = 64 }: So
 
       <g>
         {logoHref ? (
-          <image href={logoHref} x={cx - R} y={cy - R} height={logoSize} width={logoSize} clipPath="url(#logo-clip)" preserveAspectRatio="xMidYMid meet" />
+          <image
+            href={logoHref}
+            x={cx - R}
+            y={cy - R}
+            height={logoSize}
+            width={logoSize}
+            clipPath="url(#logo-clip)"
+            preserveAspectRatio="xMidYMid meet"
+          />
         ) : (
           <>
             <circle cx={cx} cy={cy} r={32} fill="url(#sietev-sun-gradient)" stroke="#0f172a" strokeOpacity={0.1} strokeWidth={4} />
@@ -154,7 +214,17 @@ function SolarSystem({ items, size = 360, palette, logoHref, logoSize = 64 }: So
       </g>
 
       {items.map((it, i) => (
-        <PlanetOrbit key={it.k} label={it.k} cx={cx} cy={cy} orbitRadius={baseOrbitRadius + i * orbitGap} planetRadius={6} haloPadding={6} duration={baseDuration * ((baseOrbitRadius + i * orbitGap) / baseOrbitRadius)} color={palette[i % palette.length]} />
+        <PlanetOrbit
+          key={it.k}
+          label={it.k}
+          cx={cx}
+          cy={cy}
+          orbitRadius={baseOrbitRadius + i * orbitGap}
+          planetRadius={6}
+          haloPadding={6}
+          duration={baseDuration * ((baseOrbitRadius + i * orbitGap) / baseOrbitRadius)}
+          color={palette[i % palette.length]}
+        />
       ))}
     </svg>
   );

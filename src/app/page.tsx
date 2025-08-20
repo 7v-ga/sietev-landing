@@ -21,9 +21,7 @@ export default function Home() {
       {/* SERVICIOS */}
       <section id="7v-bigdata" className="w-full flex flex-col items-center">
         <SevenVBigData
-          title="¿Por qué SieteV?"
-          intro="Siete dimensiones para entender y comunicar datos a escala."
-          palette={["#3d3dfc","#22d3ee","#34d399","#f59e0b","#f472b6","#a78bfa","#a2d600"]}
+          /* palette={["#3d3dfc","#22d3ee","#34d399","#f59e0b","#f472b6","#a78bfa","#a2d600"]} */
           size={420}
           showCards
           hoverTint
